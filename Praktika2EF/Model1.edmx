@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Praktika2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerSurName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CustomerSecondName" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Directors">
+          <Key>
+            <PropertyRef Name="ID_Director" />
+          </Key>
+          <Property Name="ID_Director" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DirectorSurName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DirectorName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DirectorSecondName" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="ID_Purchase" />
+          </Key>
+          <Property Name="ID_Purchase" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PurchaseName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PurchasePrice" Type="int" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" />
+          <Property Name="Store_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID_Store" />
+          </Key>
+          <Property Name="ID_Store" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="StoreCityPlace" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Director_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Purchases__Custo__3E52440B">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchases__Store__3F466844">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID_Store" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Store_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Store__Director___3B75D760">
+          <End Role="Directors" Type="Self.Directors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Store" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Directors">
+              <PropertyRef Name="ID_Director" />
+            </Principal>
+            <Dependent Role="Store">
+              <PropertyRef Name="Director_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Praktika2ModelContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Directors" EntityType="Self.Directors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Purchases__Custo__3E52440B" Association="Self.FK__Purchases__Custo__3E52440B">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchases__Store__3F466844" Association="Self.FK__Purchases__Store__3F466844">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Store__Director___3B75D760" Association="Self.FK__Store__Director___3B75D760">
+            <End Role="Directors" EntitySet="Directors" />
+            <End Role="Store" EntitySet="Store" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Praktika2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerSurName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerSecondName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Purchases" Relationship="Self.FK__Purchases__Custo__3E52440B" FromRole="Customers" ToRole="Purchases" />
+        </EntityType>
+        <EntityType Name="Directors">
+          <Key>
+            <PropertyRef Name="ID_Director" />
+          </Key>
+          <Property Name="ID_Director" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DirectorSurName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DirectorName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DirectorSecondName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Store__Director___3B75D760" FromRole="Directors" ToRole="Store" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="ID_Purchase" />
+          </Key>
+          <Property Name="ID_Purchase" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PurchasePrice" Type="Int32" Nullable="false" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <Property Name="Store_ID" Type="Int32" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Purchases__Custo__3E52440B" FromRole="Purchases" ToRole="Customers" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Purchases__Store__3F466844" FromRole="Purchases" ToRole="Store" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID_Store" />
+          </Key>
+          <Property Name="ID_Store" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoreCityPlace" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Director_ID" Type="Int32" />
+          <NavigationProperty Name="Directors" Relationship="Self.FK__Store__Director___3B75D760" FromRole="Store" ToRole="Directors" />
+          <NavigationProperty Name="Purchases" Relationship="Self.FK__Purchases__Store__3F466844" FromRole="Store" ToRole="Purchases" />
+        </EntityType>
+        <Association Name="FK__Purchases__Custo__3E52440B">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Store__Director___3B75D760">
+          <End Role="Directors" Type="Self.Directors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Store" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Directors">
+              <PropertyRef Name="ID_Director" />
+            </Principal>
+            <Dependent Role="Store">
+              <PropertyRef Name="Director_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchases__Store__3F466844">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID_Store" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Store_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Praktika2Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="Directors" EntityType="Self.Directors" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchases" />
+          <EntitySet Name="Store" EntityType="Self.Store" />
+          <AssociationSet Name="FK__Purchases__Custo__3E52440B" Association="Self.FK__Purchases__Custo__3E52440B">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Store__Director___3B75D760" Association="Self.FK__Store__Director___3B75D760">
+            <End Role="Directors" EntitySet="Directors" />
+            <End Role="Store" EntitySet="Store" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchases__Store__3F466844" Association="Self.FK__Purchases__Store__3F466844">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Praktika2ModelContainer" CdmEntityContainer="Praktika2Entities1">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="Praktika2Model.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="CustomerSurName" ColumnName="CustomerSurName" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerSecondName" ColumnName="CustomerSecondName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Directors">
+            <EntityTypeMapping TypeName="Praktika2Model.Directors">
+              <MappingFragment StoreEntitySet="Directors">
+                <ScalarProperty Name="ID_Director" ColumnName="ID_Director" />
+                <ScalarProperty Name="DirectorSurName" ColumnName="DirectorSurName" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="DirectorSecondName" ColumnName="DirectorSecondName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="Praktika2Model.Purchases">
+              <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="ID_Purchase" ColumnName="ID_Purchase" />
+                <ScalarProperty Name="PurchaseName" ColumnName="PurchaseName" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Store_ID" ColumnName="Store_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Store">
+            <EntityTypeMapping TypeName="Praktika2Model.Store">
+              <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="ID_Store" ColumnName="ID_Store" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="StoreCityPlace" ColumnName="StoreCityPlace" />
+                <ScalarProperty Name="Director_ID" ColumnName="Director_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
